@@ -33,7 +33,7 @@ export class DiscClient extends Client {
     });
 
     try {
-      await this.login(DISCORD_BOT_TOKEN);
+      await this.login(DISCORD_BOT_TOKEN.trim().replace(/^Bot\s+/i, ""));
       await readyPromise; // Wait until client is fully ready
     } catch (err) {
       logger.error("❌ Login failed:", err);
