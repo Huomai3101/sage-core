@@ -30,9 +30,9 @@ function makeMemoryKey(userId: string, channelId: string): string {
 function calculateMaxSTMSize(): number {
   const contextLength = parseInt(process.env.CONTEXT_LENGTH || '260000');
   const avgTokensPerMessage = 125;
-  const tokensForSTM = 50000;
+  const tokensForSTM = 5000;
   const maxMessages = Math.floor(tokensForSTM / avgTokensPerMessage);
-  return Math.max(50, Math.min(500, maxMessages));
+  return Math.max(20, Math.min(40, maxMessages));
 }
 
 let MAX_STM_SIZE = calculateMaxSTMSize();
