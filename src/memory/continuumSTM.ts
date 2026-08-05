@@ -31,11 +31,11 @@ function calculateMaxSTMSize(): number {
   // - Output buffer: ~8,000 tokens
 
   const avgTokensPerMessage = 125; // Real-world average for conversation
-  const tokensForSTM = 50000; // Fixed budget for STM
+  const tokensForSTM = 5000; // Fixed budget for STM
   const maxMessages = Math.floor(tokensForSTM / avgTokensPerMessage);
 
   // Minimum 50, maximum 500 messages
-  return Math.max(50, Math.min(500, maxMessages));
+  return 40;
 }
 
 let MAX_STM_SIZE = calculateMaxSTMSize();
@@ -231,7 +231,7 @@ export async function loadSTMFromChannel(
     try {
       const dbEntries = await loadSTMFromDB(userId);
       if (dbEntries.length > 0) {
-        STM_BUFFERS[userId] = dbEntries;
+        STM_BUFFERS[userId] = dbEntries.slice(-MAX_STM_SIZE);
         console.log(`✅ STM recovered from database! Loaded ${dbEntries.length} messages`);
         return;
       }
