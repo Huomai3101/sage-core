@@ -228,7 +228,7 @@ export async function loadSTMFromChannel(
     try {
       const dbEntries = await loadSTMFromDB(userId, channelId);
       if (dbEntries.length > 0) {
-        RP_STM_BUFFERS[key] = dbEntries;
+        RP_STM_BUFFERS[key] = dbEntries.slice(-MAX_STM_SIZE);
         console.log(`✅ [RP] STM recovered from database! Loaded ${dbEntries.length} messages`);
         return;
       }
